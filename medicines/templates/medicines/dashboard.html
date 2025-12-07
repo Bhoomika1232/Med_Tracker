@@ -1,0 +1,28 @@
+<!-- medicines/templates/medicines/dashboard.html -->
+{% extends 'medicines/base.html' %}
+{% block title %}Dashboard - MedTracker{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Your Medicines</h2>
+    <a class="btn btn-success" href="{% url 'medicines:medicine_add' %}">Add Medicine</a>
+  </div>
+
+  {% if medicines %}
+        {% for med in medicines %}
+        <div class="d-inline-flex p-2">
+          <div class="card shadow p-3 mb-5 bg-body-tertiary rounded"  style="width: 18rem; height:15rem;">
+            <div class="card-body" >
+              <h5 class="card-title">{{ med.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Dosage: {{ med.dosage }} </h6>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Frequency: {{ med.frequency }} </h6>
+              <p class="card-text">Comments: {{med.notes|default:"—" }}</p>
+              <button type="button" class="btn btn-success"><a href="{% url 'medicines:medicine_edit' med.pk %}" style="text-decoration: none; color: #ffffff;">Edit</a></button>
+              <button type="button" class="btn btn-danger"><a href="{% url 'medicines:medicine_delete' med.pk %}" style="text-decoration: none; color: #ffffff;" >Delete</a></button> 
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+  {% else %}
+    <p>You have no medicines added yet. Click <a href="{% url 'medicines:medicine_add' %}">Add Medicine</a> to begin.</p>
+  {% endif %}
+{% endblock %}

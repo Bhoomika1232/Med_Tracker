@@ -1,0 +1,11 @@
+<!-- medicines/templates/medicines/medicine_form.html -->
+{% extends 'medicines/base.html' %}
+{% block content %}
+  <h2>{{ title }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-secondary" href="{% url 'medicines:dashboard' %}">Cancel</a>
+  </form>
+{% endblock %}
